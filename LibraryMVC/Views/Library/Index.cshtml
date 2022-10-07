@@ -2,12 +2,13 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LibraryLayout.cshtml";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Add Books", "CreateBook")
+    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -47,9 +48,8 @@
             @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditBook", new {  id=item.Book_No }) |
+            @Html.ActionLink("Edit", "EditBook", new { id = item.Book_No }) |
             @Html.ActionLink("Details", "DetailsBook", new { id = item.Book_No }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }
