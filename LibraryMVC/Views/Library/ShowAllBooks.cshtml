@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "ShowAllBooks";
+}
+
+<h2>ShowAllBooks</h2>
+
+<table class= "table table-bordered table-condensed" >
+   
+        <tr>
+            <th>BooK_No</th>
+            <th>BooK_Name</th>
+            <th>Author</th>
+            <th>cost</th>
+            <th>Category</th>
+        </tr>   
+
+    
+    @foreach (var item in @ViewBag.allBooks)
+    {
+        <tr>
+             <td> @item.Book_No</td>
+             <td> @item.Book_Name</td>
+             <td> @item.Author</td>
+             <td> @item.Cost</td>
+             <td> @item.Category</td>
+        </tr>
+    }
+
+</table>
+

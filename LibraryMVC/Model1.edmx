@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_No" />
+          </Key>
+          <Property Name="Book_No" Type="int" Nullable="false" />
+          <Property Name="Book_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Author" Type="varchar" MaxLength="30" />
+          <Property Name="Cost" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="Category" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="IssueID" />
+          </Key>
+          <Property Name="IssueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Book_NO" Type="int" />
+          <Property Name="UserId" Type="varchar" MaxLength="30" />
+          <Property Name="IssueDate" Type="datetime" />
+          <Property Name="ReturnDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LoginDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Member_Id" />
+          </Key>
+          <Property Name="Member_Id" Type="int" Nullable="false" />
+          <Property Name="Member_Name" Type="varchar" MaxLength="20" />
+          <Property Name="Acc_Open_Date" Type="date" />
+          <Property Name="Max_Books_Allowed" Type="int" />
+          <Property Name="Penalty_Amount" Type="decimal" Precision="7" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Issue__Book_NO__1B9317B3">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_No" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="Book_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Issue__UserId__1C873BEC">
+          <End Role="LoginDetails" Type="Self.LoginDetails" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryModelStoreContainer">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Issue" EntityType="Self.Issue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Issue__Book_NO__1B9317B3" Association="Self.FK__Issue__Book_NO__1B9317B3">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Issue__UserId__1C873BEC" Association="Self.FK__Issue__UserId__1C873BEC">
+            <End Role="LoginDetails" EntitySet="LoginDetails" />
+            <End Role="Issue" EntitySet="Issue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_No" />
+          </Key>
+          <Property Name="Book_No" Type="Int32" Nullable="false" />
+          <Property Name="Book_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Author" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Cost" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Issues" Relationship="Self.FK__Issue__Book_NO__1B9317B3" FromRole="Book" ToRole="Issue" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="IssueID" />
+          </Key>
+          <Property Name="IssueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Book_NO" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Book" Relationship="Self.FK__Issue__Book_NO__1B9317B3" FromRole="Issue" ToRole="Book" />
+          <NavigationProperty Name="LoginDetail" Relationship="Self.FK__Issue__UserId__1C873BEC" FromRole="Issue" ToRole="LoginDetails" />
+        </EntityType>
+        <EntityType Name="LoginDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Issues" Relationship="Self.FK__Issue__UserId__1C873BEC" FromRole="LoginDetails" ToRole="Issue" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Member_Id" />
+          </Key>
+          <Property Name="Member_Id" Type="Int32" Nullable="false" />
+          <Property Name="Member_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Acc_Open_Date" Type="DateTime" Precision="0" />
+          <Property Name="Max_Books_Allowed" Type="Int32" />
+          <Property Name="Penalty_Amount" Type="Decimal" Precision="7" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Issue__Book_NO__1B9317B3">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Book_No" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="Book_NO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Issue__UserId__1C873BEC">
+          <End Role="LoginDetails" Type="Self.LoginDetail" Multiplicity="0..1" />
+          <End Role="Issue" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginDetails">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Issue">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Issues" EntityType="Self.Issue" />
+          <EntitySet Name="LoginDetails" EntityType="Self.LoginDetail" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <AssociationSet Name="FK__Issue__Book_NO__1B9317B3" Association="Self.FK__Issue__Book_NO__1B9317B3">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="Issue" EntitySet="Issues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Issue__UserId__1C873BEC" Association="Self.FK__Issue__UserId__1C873BEC">
+            <End Role="LoginDetails" EntitySet="LoginDetails" />
+            <End Role="Issue" EntitySet="Issues" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LibraryModelStoreContainer" CdmEntityContainer="LibraryEntities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LibraryModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Book_No" ColumnName="Book_No" />
+                <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Issues">
+            <EntityTypeMapping TypeName="LibraryModel.Issue">
+              <MappingFragment StoreEntitySet="Issue">
+                <ScalarProperty Name="IssueID" ColumnName="IssueID" />
+                <ScalarProperty Name="Book_NO" ColumnName="Book_NO" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginDetails">
+            <EntityTypeMapping TypeName="LibraryModel.LoginDetail">
+              <MappingFragment StoreEntitySet="LoginDetails">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="LibraryModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+                <ScalarProperty Name="Member_Name" ColumnName="Member_Name" />
+                <ScalarProperty Name="Acc_Open_Date" ColumnName="Acc_Open_Date" />
+                <ScalarProperty Name="Max_Books_Allowed" ColumnName="Max_Books_Allowed" />
+                <ScalarProperty Name="Penalty_Amount" ColumnName="Penalty_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
