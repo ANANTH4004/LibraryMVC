@@ -12,6 +12,8 @@ namespace LibraryMVC
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class LibraryEntities : DbContext
     {
@@ -29,5 +31,10 @@ namespace LibraryMVC
         public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<LoginDetail> LoginDetails { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+    
+        public virtual ObjectResult<GetAllBook_Result> GetAllBook()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllBook_Result>("GetAllBook");
+        }
     }
 }
