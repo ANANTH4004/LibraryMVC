@@ -78,7 +78,7 @@ namespace LibraryMVC.Controllers
             return View();
         }
         [HttpPost]
-        //public ActionResult Login(FormCollection collection)
+        public ActionResult Login(FormCollection collection)
         {
           //  LoginDetail l = new LoginDetail();
             string uid = Request["UserId"];   
