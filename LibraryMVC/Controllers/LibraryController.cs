@@ -33,6 +33,8 @@ namespace LibraryMVC.Controllers
 
         public ActionResult Index()
         {
+            // Console.WriteLine("hello from shyam);
+
             //books.Add(new Book { Book_No=12,Book_Name="Ponniyin Selvan",Author ="kalki", Cost=1500,Category="Tamizh"});
             //      books.Add(new Book { Book_No=11,Book_Name="Rich Dad Poor Dad",Author = "Robert Kiyosaki ", Cost=1500,Category="English"});
             //      books.Add(new Book { Book_No=13,Book_Name="Wings Of fire",Author = "DR.\tA P J Abdul Kalam", Cost=1500,Category= "Autobiography" });
