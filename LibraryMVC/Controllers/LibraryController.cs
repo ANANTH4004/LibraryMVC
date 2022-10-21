@@ -86,7 +86,7 @@ namespace LibraryMVC.Controllers
             
             var ans = context.LoginDetails.ToList().Find(temp => temp.UserId == uid);
             if(ans.UserId == uid && ans.Password == pwd)
-            {
+            //{
                 
               //  return RedirectToAction("Index");
 
