@@ -13,7 +13,7 @@ namespace LibraryMVC.Controllers
         // sss  demo
         public ActionResult Index()
         {
-            return View();
+
         }
 
         public ActionResult About()
