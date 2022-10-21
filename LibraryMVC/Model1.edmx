@@ -14,6 +14,7 @@
           <Property Name="Author" Type="varchar" MaxLength="30" />
           <Property Name="Cost" Type="decimal" Precision="7" Scale="2" />
           <Property Name="Category" Type="char" MaxLength="10" />
+          <Property Name="Availability" Type="int" />
         </EntityType>
         <EntityType Name="Issue">
           <Key>
@@ -95,6 +96,7 @@
           <Property Name="Cost" Type="Decimal" Precision="7" Scale="2" />
           <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Issues" Relationship="Self.FK__Issue__Book_NO__1B9317B3" FromRole="Book" ToRole="Issue" />
+          <Property Name="Availability" Type="Int32" />
         </EntityType>
         <EntityType Name="Issue">
           <Key>
@@ -181,6 +183,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="LibraryModel.Book">
               <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Availability" ColumnName="Availability" />
                 <ScalarProperty Name="Book_No" ColumnName="Book_No" />
                 <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
                 <ScalarProperty Name="Author" ColumnName="Author" />

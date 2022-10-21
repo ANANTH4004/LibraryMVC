@@ -25,6 +25,7 @@ namespace LibraryMVC
         public string Author { get; set; }
         public Nullable<decimal> Cost { get; set; }
         public string Category { get; set; }
+        public Nullable<int> Availability { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Issue> Issues { get; set; }

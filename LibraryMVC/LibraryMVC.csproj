@@ -226,6 +226,7 @@
     <Content Include="Views\Shared\_LibraryLayout.cshtml" />
     <Content Include="Views\Library\Index.cshtml" />
     <Content Include="Views\Library\Par.cshtml" />
+    <Content Include="Views\Library\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
